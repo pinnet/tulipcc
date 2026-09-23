@@ -26,10 +26,10 @@ earlier, inside `amyboard.start_amy()` itself.
   `_load_user_patches()` immediately before `run_sketch()`, on both the
   normal and VCV boot paths.
 - `_load_user_patches()` imports a fixed list of module names (currently just
-  `my_amyboard`). Each import is wrapped in its own `try/except`, so a
+  `modulino_encoder_patch`). Each import is wrapped in its own `try/except`, so a
   missing accessory or a broken patch can't block the sketch from booting.
-- `tulip/amyboard/modules/my_amyboard.py` is **frozen into firmware** via
-  `freeze(...)` in `tulip/amyboard/boards/manifest.py` -- it isn't a file on
+- `tulip/amyboard/modules/modulino_encoder_patch.py` is **frozen into firmware**
+  via `freeze(...)` in `tulip/amyboard/boards/manifest.py` -- it isn't a file on
   the `/user` filesystem, so it can't be touched by sketch uploads/downloads
   at all.
 - The patch applies by import-time side effect: it wraps `amyboard.encoder`

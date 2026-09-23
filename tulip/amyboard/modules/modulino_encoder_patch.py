@@ -1,6 +1,6 @@
-# my_amyboard.py — frozen into firmware (boards/manifest.py) and auto-imported
-# by amyboard._load_user_patches() before the sketch runs, so this patch
-# applies on every boot regardless of what /user/current/sketch.py contains.
+# modulino_encoder_patch.py — frozen into firmware (boards/manifest.py) and
+# auto-imported by amyboard._load_user_patches() before the sketch runs, so
+# this patch applies on every boot regardless of what /user/current/sketch.py contains.
 #
 # Adds a Modulino Knob (I2C rotary encoder accessory) as an extra device on
 # amyboard.encoder(), alongside whatever encoders amyboard already detects.

@@ -499,7 +499,7 @@ def _load_user_patches():
     regardless of its content -- unlike putting the same code in sketch.py,
     they aren't lost when a different sketch is downloaded from the web
     editor. Add more modules here as they're frozen in boards/manifest.py."""
-    for name in ("my_amyboard",):
+    for name in ("modulino_encoder_patch",):
         try:
             __import__(name)
         except Exception as e:

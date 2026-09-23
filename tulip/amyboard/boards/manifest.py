@@ -7,7 +7,7 @@ freeze("$(PORT_DIR)/modules", "flashbdev.py")
 # amyboard.start_amy() before the sketch runs -- see _load_user_patches()
 # in shared/amyboard-py/amyboard.py. Frozen (not in /user/current) so it
 # survives downloading a different sketch.py from the web editor.
-freeze("$(PORT_DIR)/modules", "my_amyboard.py")
+freeze("$(PORT_DIR)/modules", "modulino_encoder_patch.py")
 
 include("$(MPY_DIR)/extmod/asyncio")
 
