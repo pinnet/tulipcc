@@ -7,3 +7,6 @@
 [submodule "tinycc"]
 	path = tinycc
 	url = https://github.com/TinyCC/tinycc
+[submodule "Arduino_Modulino"]
+	path = Arduino_Modulino
+	url = git@github.com:arduino-libraries/Arduino_Modulino.git
