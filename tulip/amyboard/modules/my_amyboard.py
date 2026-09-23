@@ -1,7 +1,6 @@
 import amyboard
 from modulino.knob import ModulinoKnob
 
-_MOD_ADDR = 0x76
 _i2c = amyboard.get_i2c()
 
 
@@ -35,7 +34,9 @@ _orig_encoder = amyboard.encoder
 def encoder(*args, **kwargs):
     enc = _orig_encoder(*args, **kwargs)
     try:
-        knob = ModulinoKnob(_i2c, address=_MOD_ADDR)
+        # address=None auto-discovers the real bus address (0x3A or 0x3B)
+        # by scanning ModulinoKnob's pinstrap default_addresses [0x74, 0x76] >> 1
+        knob = ModulinoKnob(_i2c)
         knob.update()
     except Exception as e:
         print("Modulino Knob not found:", e)
@@ -45,7 +46,7 @@ def encoder(*args, **kwargs):
     base = enc.encoders
     enc.encoders = base + 1
     enc.buttons = getattr(enc, 'buttons', base) + 1
-    enc.devices = list(enc.devices) + [("modulino_knob", _MOD_ADDR)]
+    enc.devices = list(enc.devices) + [("modulino_knob", knob.address)]
     enc.type = "multi" if enc.type not in (None, "modulino_knob") else "modulino_knob"
 
     _read, _button, _reset = enc.read, enc.button, enc.reset
