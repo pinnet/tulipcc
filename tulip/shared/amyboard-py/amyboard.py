@@ -491,6 +491,21 @@ def midi_type():
     return _midi_type
 
 
+def _load_user_patches():
+    """Import frozen user accessory patches before the sketch runs.
+
+    These modules apply by their own import-time side effects (e.g.
+    monkeypatching amyboard.encoder), so they take effect for every sketch
+    regardless of its content -- unlike putting the same code in sketch.py,
+    they aren't lost when a different sketch is downloaded from the web
+    editor. Add more modules here as they're frozen in boards/manifest.py."""
+    for name in ("my_amyboard",):
+        try:
+            __import__(name)
+        except Exception as e:
+            tulip.stderr_write("user patch %s failed: %s" % (name, e))
+
+
 def start_amy():
     if _vcv():
         # AMY is already running in-process (the Rack module called run_amy()
@@ -499,6 +514,7 @@ def start_amy():
         amy.send_raw("i1K257iv6Z")
         amy.send_raw("i10K384iv1Z")
         _ensure_current_env_layout()
+        _load_user_patches()
         try:
             run_sketch()
         except Exception as e:
@@ -519,6 +535,7 @@ def start_amy():
     amy.send_raw("i1K257iv6Z")
     amy.send_raw("i10K384iv1Z")
     _env_dir = _ensure_current_env_layout()
+    _load_user_patches()
 
     if tulip.bootloader_mode():
         tulip.stderr_write("bootloader mode — sketch skipped, waiting for commands")
